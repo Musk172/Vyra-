@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), sans-serif;
+  --font-cursive: var(--font-cursive), cursive;
+  --color-vyra-dark: #0a0a0a;
+  --color-vyra-green: #34d399;
+  --color-vyra-green-glow: rgba(52, 211, 153, 0.2);
+  --color-vyra-text: #f3f4f6;
+  --color-vyra-text-muted: #9ca3af;
+  --color-vyra-card: rgba(255, 255, 255, 0.05);
+  --color-vyra-border: rgba(255, 255, 255, 0.1);
+  --color-vyra-magenta: #e879f9;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-vyra-dark);
+    color: var(--color-vyra-text);
+    font-family: 'Inter', sans-serif;
+    overscroll-behavior-y: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Hide scrollbar for a seamless look */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    background: var(--color-vyra-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--color-vyra-border);
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  
+  .text-glow-green {
+    text-shadow: 0 0 10px var(--color-vyra-green-glow);
+  }
+  
+  .particle {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0;
+    animation: float 10s infinite linear;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.5;
+    transform: translateY(80vh) scale(1);
+  }
+  80% {
+    opacity: 0.5;
+    transform: translateY(20vh) scale(1);
+  }
+  100% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Swiper custom styles */
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
