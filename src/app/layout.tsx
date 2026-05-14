@@ -5,7 +5,7 @@ import DesktopWarning from '@/components/DesktopWarning';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const dancingScript = Dancing_Script({ subsets: ['latin'], variable: '--font-cursive' });
-const sunflower = Sunflower({ weight: ['300', '500', '700'], subsets: ['latin'], variable: '--font-sunflower' });
+const sunflower = Sunflower({ weight: ['300', '500', '700'], variable: '--font-sunflower' });
 const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' });
 
 export const metadata: Metadata = {
