@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
 import { Leaf, ShoppingBag, CheckCircle, Flame, Droplets, Info, X, ChevronUp, Sparkles, Layers, Zap, Sprout } from 'lucide-react';
 import { Microgreen } from '@/data/microgreens';
 import Image from 'next/image';
@@ -13,6 +13,10 @@ interface Props {
 
 export default function MicrogreenSlide({ microgreen, isActive }: Props) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const textOpacity = useTransform(x, [0, 120], [1, 0]);
+  const fillWidth = useTransform(x, (value) => `${value + 52}px`);
 
   const handleOrder = () => {
     const text = encodeURIComponent(`Hi VYRA Greens! I'm interested in ordering fresh ${microgreen.name} microgreens.`);
@@ -138,36 +142,56 @@ export default function MicrogreenSlide({ microgreen, isActive }: Props) {
 
         {/* Swipe to Order CTA */}
         <motion.div variants={itemVariants} className="relative w-full h-[64px] rounded-full overflow-hidden p-1.5 shadow-[0_8px_30px_rgb(0,0,0,0.3)] bg-[#0a0a0a]/60 backdrop-blur-xl border border-white/10">
+          {/* Progress Fill Backing */}
+          <motion.div 
+            className="absolute left-1.5 top-1.5 bottom-1.5 rounded-full pointer-events-none opacity-80"
+            style={{ 
+              width: fillWidth, 
+              backgroundColor: `${microgreen.color}20`,
+              borderRight: `1px solid ${microgreen.color}40`
+            }}
+          />
+
           {/* Background Text */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <motion.div 
+            className="absolute inset-0 flex items-center justify-center pointer-events-none gap-2"
+            style={{ opacity: textOpacity }}
+          >
             <span 
-              className="text-[11px] font-bold uppercase tracking-[0.25em] text-white/40 pl-8"
+              className="text-[11px] font-bold uppercase tracking-[0.25em] text-white/40 pl-8 flex items-center gap-1.5"
               style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}
             >
               Swipe to Order
             </span>
-          </div>
+            <motion.div
+              animate={{ x: [0, 4, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+              className="flex opacity-30 -mt-0.5"
+            >
+              <ChevronUp className="w-3 h-3 rotate-90 -mr-1.5" />
+              <ChevronUp className="w-3 h-3 rotate-90 -mr-1.5" />
+              <ChevronUp className="w-3 h-3 rotate-90" />
+            </motion.div>
+          </motion.div>
 
           {/* Track boundary for drag */}
-          <div className="w-full h-full relative" ref={(node) => {
-            if (node) {
-              // Store ref on window just for bounding since we can't easily hook in this component
-              (window as any).trackNode = node;
-            }
-          }}>
+          <div className="w-full h-full relative" ref={trackRef}>
             <motion.div
               drag="x"
-              dragConstraints={{ left: 0, right: 240 }} // Fallback right constraint, bounding dynamically below
-              dragElastic={0.05}
+              dragConstraints={trackRef}
+              dragElastic={0.02}
               dragSnapToOrigin={true}
+              style={{ x, backgroundColor: microgreen.color }}
               onDragEnd={(e, info) => {
-                if (info.offset.x > 150) {
+                const width = trackRef.current?.getBoundingClientRect().width || 240;
+                const threshold = (width - 52) * 0.8; // Requires 80% swipe to trigger
+                if (info.offset.x > threshold) {
                   handleOrder();
                 }
               }}
-              whileTap={{ scale: 0.95 }}
-              className="absolute left-0 top-0 w-[52px] h-[52px] rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing z-10 shadow-lg"
-              style={{ backgroundColor: microgreen.color }}
+              whileTap={{ scale: 0.92 }}
+              whileHover={{ scale: 1.02 }}
+              className="absolute left-0 top-0 w-[52px] h-[52px] rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing z-10 shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
             >
               <ShoppingBag className="w-5 h-5 text-black" />
             </motion.div>

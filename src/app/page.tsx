@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Parallax, EffectCreative } from 'swiper/modules';
-import { AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import { microgreens } from '@/data/microgreens';
 import MicrogreenSlide from '@/components/MicrogreenSlide';
@@ -16,6 +16,14 @@ import 'swiper/css/effect-creative';
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2800); // Keep displayed briefly to appreciate animation
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="relative w-full h-full bg-vyra-dark text-white font-sans overflow-hidden">
@@ -24,14 +32,14 @@ export default function Home() {
       {/* Top Navigation / Brand */}
       <div className="absolute top-0 left-0 right-0 p-4 pt-4 z-50 flex justify-between items-center pointer-events-none">
         <div className="flex items-center">
-          <img 
-            src="/Logo.jpeg" 
-            alt="VYRA Logo" 
-            className="h-10 w-10 object-cover rounded-full opacity-80 shadow-lg border border-white/10" 
+          <img
+            src="/Logo.jpeg"
+            alt="VYRA Logo"
+            className="h-10 w-10 object-cover rounded-full opacity-80 shadow-lg border border-white/10"
           />
         </div>
 
-        <div 
+        <div
           className="flex items-center gap-3 text-[9px] font-medium uppercase tracking-[0.25em] text-white/50"
           style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}
         >
@@ -68,22 +76,35 @@ export default function Home() {
         >
           {microgreens.map((mg) => (
             <SwiperSlide key={mg.id}>
-              <div className="w-full h-full relative">
-                <Image
-                  src={mg.image}
-                  alt={mg.name}
-                  fill
-                  className="object-cover object-center"
-                  priority
-                  quality={100}
-                />
-                <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/70 to-transparent pointer-events-none" />
-                <div className="absolute inset-x-0 top-0 h-[20%] bg-gradient-to-b from-[#0a0a0a]/70 to-transparent pointer-events-none" />
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-1/3 opacity-10 blur-3xl pointer-events-none transition-colors duration-700"
-                  style={{ background: `radial-gradient(circle at bottom, ${mg.color}, transparent 70%)` }}
-                />
-              </div>
+              {({ isActive }) => (
+                <div className="w-full h-full relative bg-vyra-dark">
+                  {mg.backgroundImage && (
+                    <Image
+                      src={mg.backgroundImage}
+                      alt={`${mg.name} Background`}
+                      fill
+                      className={`object-cover object-center absolute inset-0 transition-opacity duration-1000 ease-in-out z-0 ${isActive ? 'opacity-100 delay-[1000ms]' : 'opacity-0 delay-0'}`}
+                      priority
+                      quality={100}
+                    />
+                  )}
+                  <Image
+                    src={mg.image}
+                    alt={mg.name}
+                    fill
+                    className={`${mg.backgroundImage ? 'object-contain object-center z-30 scale-[0.85]' : 'object-cover object-center z-0'}`}
+                    priority
+                    quality={100}
+                    unoptimized={!!mg.backgroundImage}
+                  />
+                  <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/70 to-transparent pointer-events-none z-20" />
+                  <div className="absolute inset-x-0 top-0 h-[20%] bg-gradient-to-b from-[#0a0a0a]/70 to-transparent pointer-events-none z-20" />
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-1/3 opacity-10 blur-3xl pointer-events-none transition-colors duration-700 z-20"
+                    style={{ background: `radial-gradient(circle at bottom, ${mg.color}, transparent 70%)` }}
+                  />
+                </div>
+              )}
             </SwiperSlide>
           ))}
         </Swiper>
@@ -109,6 +130,29 @@ export default function Home() {
           />
         </div>
       </div>
+      {/* Entrance Loading Overlay */}
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }}
+            className="absolute inset-0 z-[100] bg-vyra-dark flex flex-col items-center justify-center pointer-events-auto"
+          >
+            <div className="flex flex-col items-center justify-center gap-6">
+              <span className="loader scale-110" />
+              <motion.h1 
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 0.85, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
+                className="text-[24px] font-black tracking-[0.4em] uppercase text-white pl-[0.4em]"
+                style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}
+              >
+                VYRA
+              </motion.h1>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
