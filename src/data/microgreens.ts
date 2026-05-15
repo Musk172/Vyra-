@@ -2,6 +2,7 @@ export type Microgreen = {
   id: string;
   name: string;
   image: string;
+  cutoutImage?: string;
   backgroundImage?: string;
   tasteProfile: string;
   dishes: string[];
@@ -70,7 +71,8 @@ export const microgreens: Microgreen[] = [
   {
     id: 'basil',
     name: 'Basil',
-    image: '/Basil Cutout.png',
+    image: '/Basil.jpeg',
+    cutoutImage: '/Basil Cutout.png',
     backgroundImage: '/Basil Wareground.jpeg',
     tasteProfile: 'Sweet, Delicate, Fragrant',
     dishes: ['Paneer bowls', 'Sandwiches', 'Wraps', 'Salads'],

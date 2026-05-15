@@ -89,13 +89,13 @@ export default function Home() {
                     />
                   )}
                   <Image
-                    src={mg.image}
+                    src={mg.cutoutImage || mg.image}
                     alt={mg.name}
                     fill
-                    className={`${mg.backgroundImage ? 'object-contain object-center z-30 scale-[0.85]' : 'object-cover object-center z-0'}`}
+                    className={`${mg.cutoutImage ? 'object-contain object-center z-30 scale-[0.85]' : 'object-cover object-center z-0'}`}
                     priority
                     quality={100}
-                    unoptimized={!!mg.backgroundImage}
+                    unoptimized={!!mg.cutoutImage}
                   />
                   <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/70 to-transparent pointer-events-none z-20" />
                   <div className="absolute inset-x-0 top-0 h-[20%] bg-gradient-to-b from-[#0a0a0a]/70 to-transparent pointer-events-none z-20" />
