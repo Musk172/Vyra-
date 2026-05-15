@@ -8,7 +8,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { microgreens } from '@/data/microgreens';
 import MicrogreenSlide from '@/components/MicrogreenSlide';
 import ParticleField from '@/components/ParticleField';
-import { Leaf } from 'lucide-react';
 import Image from 'next/image';
 
 import 'swiper/css';

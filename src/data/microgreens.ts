@@ -72,8 +72,6 @@ export const microgreens: Microgreen[] = [
     id: 'basil',
     name: 'Basil',
     image: '/Basil.jpeg',
-    cutoutImage: '/Basil Cutout.png',
-    backgroundImage: '/Basil Wareground.jpeg',
     tasteProfile: 'Sweet, Delicate, Fragrant',
     dishes: ['Paneer bowls', 'Sandwiches', 'Wraps', 'Salads'],
     benefits: ['Anti-bacterial', 'Reduces stress', 'Improves digestion'],

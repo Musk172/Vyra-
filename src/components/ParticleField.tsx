@@ -15,7 +15,11 @@ export default function ParticleField() {
       delay: Math.random() * 5,
       duration: Math.random() * 10 + 10,
     }));
-    setParticles(newParticles);
+    // Defer state updates to avoid cascading render warning
+    const frame = requestAnimationFrame(() => {
+      setParticles(newParticles);
+    });
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   return (
