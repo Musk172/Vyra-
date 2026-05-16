@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
-import { ShoppingBag, ChevronUp, Sparkles } from 'lucide-react';
+import { ShoppingBag, ChevronUp, Sparkles, Leaf } from 'lucide-react';
 import { Microgreen } from '@/data/microgreens';
 import Image from 'next/image';
 
@@ -217,7 +217,7 @@ export default function MicrogreenSlide({ microgreen, isActive }: Props) {
               whileHover={{ scale: 1.03 }}
               className="absolute left-0 top-0 w-[52px] h-[52px] rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing z-10 shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
             >
-              <ShoppingBag className="w-5 h-5 text-black" />
+              <Leaf className="w-5 h-5 text-black" />
             </motion.div>
           </div>
         </motion.div>
