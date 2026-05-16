@@ -20,7 +20,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2800); // Keep displayed briefly to appreciate animation
+    }, 2000); // Snappier entrance
     return () => clearTimeout(timer);
   }, []);
 
@@ -68,7 +68,7 @@ export default function Home() {
           }}
           parallax={true}
           direction="horizontal"
-          speed={1000}
+          speed={700}
           grabCursor={true}
           onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
           className="w-full h-full"
@@ -82,7 +82,7 @@ export default function Home() {
                       src={mg.backgroundImage}
                       alt={`${mg.name} Background`}
                       fill
-                      className={`object-cover object-center absolute inset-0 transition-opacity duration-1000 ease-in-out z-0 ${isActive ? 'opacity-100 delay-[1000ms]' : 'opacity-0 delay-0'}`}
+                      className={`object-cover object-center absolute inset-0 transition-opacity duration-700 ease-in-out z-0 ${isActive ? 'opacity-100 delay-[500ms]' : 'opacity-0 delay-0'}`}
                       priority
                       quality={100}
                     />

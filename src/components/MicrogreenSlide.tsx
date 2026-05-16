@@ -42,13 +42,13 @@ export default function MicrogreenSlide({ microgreen, isActive }: Props) {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.08, delayChildren: 0.2 }
+      transition: { staggerChildren: 0.05, delayChildren: 0.15 }
     }
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 15, filter: 'blur(6px)' },
-    visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const } }
+    visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const } }
   };
 
   const drawerContentVariants = {
@@ -57,9 +57,9 @@ export default function MicrogreenSlide({ microgreen, isActive }: Props) {
       opacity: 1,
       y: 0,
       transition: {
-        delay: 0.15 + i * 0.07,
-        duration: 0.6,
-        ease: [0.25, 1, 0.5, 1] as const
+        delay: 0.1 + i * 0.05,
+        duration: 0.4,
+        ease: [0.22, 1, 0.36, 1] as const
       }
     })
   };
@@ -71,7 +71,7 @@ export default function MicrogreenSlide({ microgreen, isActive }: Props) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.6, ease: "easeInOut" }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
     >
       {/* Top Center Title */}
       <motion.div
@@ -252,7 +252,7 @@ export default function MicrogreenSlide({ microgreen, isActive }: Props) {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
-              transition={{ type: "spring", damping: 32, stiffness: 320, mass: 1 }}
+              transition={{ type: "spring", damping: 40, stiffness: 400, mass: 1 }}
               className="absolute bottom-0 left-0 right-0 max-h-[85vh] flex flex-col pointer-events-auto rounded-t-[2.5rem] border-t border-white/10 bg-[#0d0d0d]/90 backdrop-blur-2xl shadow-[0_-15px_50px_rgba(0,0,0,0.7)]"
             >
               {/* Pull Handle & Floating Image Cover Header */}
