@@ -59,7 +59,7 @@ export default function MicrogreenSlide({ microgreen, isActive }: Props) {
       transition: {
         delay: 0.15 + i * 0.07,
         duration: 0.6,
-        ease: [0.25, 1, 0.5, 1]
+        ease: [0.25, 1, 0.5, 1] as const
       }
     })
   };
