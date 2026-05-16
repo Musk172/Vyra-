@@ -149,14 +149,14 @@ export default function MicrogreenSlide({ microgreen, isActive }: Props) {
       >
         {/* View Info Trigger */}
         <motion.div variants={itemVariants} className="mb-6">
-          <div className="relative w-full flex items-center justify-between py-2 group">
+          <div className="relative w-full flex items-center justify-center py-2 group gap-4">
             <span 
               className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/70 transition-colors"
               style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}
             >
               Nutritional Info
             </span>
-            <div className="flex-1 border-b border-dashed border-white/10 mx-12 transition-colors" />
+            <div className="w-8 border-b border-dashed border-white/10 transition-colors" />
             <button
               onClick={() => setIsDrawerOpen(true)}
               aria-label="Open Details"
