@@ -156,7 +156,7 @@ export default function MicrogreenSlide({ microgreen, isActive }: Props) {
             >
               Nutritional Info
             </span>
-            <div className="flex-1 border-b border-dashed border-white/10 mx-4 transition-colors" />
+            <div className="flex-1 border-b border-dashed border-white/10 mx-12 transition-colors" />
             <button
               onClick={() => setIsDrawerOpen(true)}
               aria-label="Open Details"
